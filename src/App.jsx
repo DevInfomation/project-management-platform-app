@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import './App.css';
+import AppRoutes from './common/AppRoutes';
+import Hero from './HeroPage/Hero';
 
 function App() {
   return (
     <>
-      
+      <AppRoutes />
     </>
   );
 }

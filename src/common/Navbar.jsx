@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -92,26 +93,12 @@ const Navbar = () => {
 
           <ul className="flex flex-col gap-8 font-semibold text-sm text-slate-900 lg:flex-row max-lg:p-6 lg:ml-12">
             <li>
-              <a
-                href="#"
+              <Link
+                to="/main-board"
                 className="hover:text-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 rounded"
                 aria-current="page">
                 Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 rounded">
-                Features
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 rounded">
-                Blog
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -136,11 +123,11 @@ const Navbar = () => {
             className="text-slate-900 text-sm font-semibold hover:text-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 rounded">
             Log in
           </a>
-          <a
-            href="#"
+          <Link
+            to="/sign-up"
             className="py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-rose-600 bg-rose-600 hover:bg-rose-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">
             Sign up
-          </a>
+          </Link>
 
           <button
             type="button"

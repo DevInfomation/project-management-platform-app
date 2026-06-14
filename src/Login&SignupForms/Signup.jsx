@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useState, useEffect } from 'react';
 import { UsersRepository } from '../repositories/UsersRepository';
+import { useNavigate } from 'react-router';
 
 const Signup = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const toggleVisibility = () => {
     setIsVisible(prevState => !prevState);
@@ -38,8 +41,15 @@ const Signup = () => {
     };
 
     UsersRepository.createUser(createUserRequest)
-      .then(res => console.log(res))
+      .then(res => {
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 5000)
+      })
       .catch(err => console.error(err));
+
+      navigate('/main-board');
   };
 
   return (
@@ -71,8 +81,7 @@ const Signup = () => {
                 type="text"
                 id="fname"
                 name="fname"
-                placeholder="John"
-                required
+                placeholder="John" 
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-900"
@@ -196,6 +205,7 @@ const Signup = () => {
               Create an account
             </button>
             {error && <p className='text-red-600 text-sm mt-2'>{error}</p>}
+            {success && <p className='text-green-600 text-sm mt-2'>Account has been created!</p>}
           </div>
         </form>
       </div>

@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import AppRoutes from './common/AppRoutes';
-import Hero from './HeroPage/Hero';
+import Layout from './MainLayout/Layout';
 
 function App() {
   return (
     <>
-      <AppRoutes />
+      <Layout />
     </>
   );
 }

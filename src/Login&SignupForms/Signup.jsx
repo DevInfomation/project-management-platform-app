@@ -1,11 +1,33 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { UsersRepository } from '../repositories/UsersRepository';
 
 const Signup = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [password, setPassword] = useState('');
 
   const toggleVisibility = () => {
     setIsVisible(prevState => !prevState);
+  };
+
+  const createUser = (e) => {
+    e.preventDefault(); 
+
+    const createUserRequest = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      mobileNumber: mobileNumber,
+      password: password,
+    };
+
+    UsersRepository.createUser(createUserRequest)
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
   };
 
   return (
@@ -39,6 +61,8 @@ const Signup = () => {
                 name="fname"
                 placeholder="John"
                 required
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-900"
               />
             </div>
@@ -54,6 +78,8 @@ const Signup = () => {
                 name="lname"
                 placeholder="Doe"
                 required
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-900  "
               />
             </div>
@@ -69,6 +95,8 @@ const Signup = () => {
                 name="email"
                 placeholder="john@readymadeui.com"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-900  "
               />
             </div>
@@ -84,6 +112,8 @@ const Signup = () => {
                 name="mobile"
                 placeholder="123-456-7890"
                 required
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
                 className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-900  "
               />
             </div>
@@ -99,11 +129,12 @@ const Signup = () => {
                 name="password"
                 placeholder="••••••••"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-900  "
               />
             </div>
-            <div>
-            </div>
+            <div></div>
             <div className="flex items-start flex-wrap gap-2">
               <label className="flex items-center group has-[input:checked]:text-slate-900">
                 <input
@@ -148,6 +179,7 @@ const Signup = () => {
           <div className="mt-6">
             <button
               type="submit"
+              onClick={createUser}
               className="py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
               Create an account
             </button>

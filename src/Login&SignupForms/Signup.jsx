@@ -9,6 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const toggleVisibility = () => {
     setIsVisible(prevState => !prevState);
@@ -16,6 +17,17 @@ const Signup = () => {
 
   const createUser = (e) => {
     e.preventDefault(); 
+
+    if (!firstName || !lastName || !email || !mobileNumber || !password) {
+      setError('Please fill out all the fields!');
+      setTimeout(() => {
+        setError('');
+      }, 5000)
+
+      return;
+    }
+
+    setError('');
 
     const createUserRequest = {
       firstName: firstName,
@@ -183,6 +195,7 @@ const Signup = () => {
               className="py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
               Create an account
             </button>
+            {error && <p className='text-red-600 text-sm mt-2'>{error}</p>}
           </div>
         </form>
       </div>
